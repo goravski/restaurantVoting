@@ -1,12 +1,16 @@
 package org.goravski.restaurantVoting.model;
 
 
-import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import org.goravski.restaurantVoting.util.HasId;
 import org.hibernate.Hibernate;
 import org.springframework.data.annotation.Id;
+
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.MappedSuperclass;
+import javax.persistence.SequenceGenerator;
 
 
 @MappedSuperclass
