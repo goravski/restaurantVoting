@@ -1,21 +1,14 @@
 package org.goravski.restaurantVoting.model;
 
 
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
 import org.goravski.restaurantVoting.util.HasId;
 import org.hibernate.Hibernate;
-import org.springframework.data.annotation.Id;
 
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.MappedSuperclass;
-import javax.persistence.SequenceGenerator;
+import javax.persistence.*;
 
 
 @MappedSuperclass
-@NoArgsConstructor
-@AllArgsConstructor
+@Access(AccessType.FIELD)
 public abstract class AbstractBaseEntity implements HasId {
     public static final int START_SEQ = 100000;
 
@@ -23,6 +16,13 @@ public abstract class AbstractBaseEntity implements HasId {
     @SequenceGenerator(name = "global_seq", sequenceName = "global_seq", allocationSize = 1, initialValue = START_SEQ)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "global_seq")
     protected Integer id;
+
+    protected AbstractBaseEntity() {
+    }
+
+    protected AbstractBaseEntity(Integer id) {
+        this.id = id;
+    }
 
     @Override
     public void setId(Integer id) {
