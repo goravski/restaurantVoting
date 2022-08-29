@@ -12,8 +12,7 @@ CREATE TABLE users
     name       VARCHAR(255)            NOT NULL,
     email      VARCHAR(255)            NOT NULL,
     password   VARCHAR(255)            NOT NULL,
-    registered TIMESTAMP DEFAULT now() NOT NULL,
-    enabled    BOOLEAN   DEFAULT TRUE  NOT NULL
+    registered TIMESTAMP DEFAULT now() NOT NULL
 
 );
 CREATE UNIQUE INDEX users_unique_email_idx
@@ -33,6 +32,17 @@ CREATE TABLE restaurants
     name  VARCHAR(255) NOT NULL,
     votes INTEGER
 );
+
+CREATE TABLE votes
+(
+    id            INTEGER PRIMARY KEY,
+    user_id       INTEGER                 NOT NULL,
+    restaurant_id INTEGER                 NOT NULL,
+    vote          BOOLEAN   DEFAULT TRUE  NOT NULL,
+    date_vote     TIMESTAMP DEFAULT now() NOT NULL,
+    FOREIGN KEY (restaurant_id) REFERENCES restaurants (id) ON DELETE CASCADE
+);
+CREATE UNIQUE INDEX vote_unique_user_datetime_idx ON votes (user_id, date_vote);
 
 CREATE TABLE meals
 (
