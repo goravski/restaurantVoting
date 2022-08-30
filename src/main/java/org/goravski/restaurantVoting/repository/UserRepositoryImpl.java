@@ -31,7 +31,7 @@ public class UserRepositoryImpl implements UserRepository{
 
     @Override
     public User getByEmail(String email) {
-        return jpaUserRepository.getUserByEmail(email).orElse(null);
+        return jpaUserRepository.getUserByEmail(email);
     }
 
     @Override
