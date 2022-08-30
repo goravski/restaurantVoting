@@ -1,4 +1,5 @@
 DROP TABLE user_roles IF EXISTS;
+DROP TABLE votes IF EXISTS ;
 DROP TABLE meals IF EXISTS;
 DROP TABLE users IF EXISTS;
 DROP TABLE restaurants IF EXISTS;
@@ -33,16 +34,6 @@ CREATE TABLE restaurants
     votes INTEGER
 );
 
-CREATE TABLE votes
-(
-    id            INTEGER PRIMARY KEY,
-    user_id       INTEGER                 NOT NULL,
-    restaurant_id INTEGER                 NOT NULL,
-    vote          BOOLEAN   DEFAULT TRUE  NOT NULL,
-    date_vote     TIMESTAMP DEFAULT now() NOT NULL,
-    FOREIGN KEY (restaurant_id) REFERENCES restaurants (id) ON DELETE CASCADE
-);
-CREATE UNIQUE INDEX vote_unique_user_datetime_idx ON votes (user_id, date_vote);
 
 CREATE TABLE meals
 (
@@ -54,4 +45,16 @@ CREATE TABLE meals
     FOREIGN KEY (restaurant_id) REFERENCES restaurants (id) ON DELETE CASCADE
 );
 CREATE UNIQUE INDEX meals_unique_restaurant_datetime_idx
-    ON meals (restaurant_id, date)
+    ON meals (restaurant_id, date);
+
+CREATE TABLE votes
+(
+    id            INTEGER PRIMARY KEY,
+    user_id       INTEGER                 NOT NULL,
+    restaurant_id INTEGER                 NOT NULL,
+    vote          BOOLEAN   DEFAULT TRUE  NOT NULL,
+    date_vote     TIMESTAMP DEFAULT now() NOT NULL,
+    FOREIGN KEY (restaurant_id) REFERENCES RESTAURANTS (id) ON DELETE CASCADE
+);
+
+CREATE UNIQUE INDEX vote_unique_user_datetime_idx ON votes (user_id, date_vote);
