@@ -14,7 +14,6 @@ import java.util.*;
 
 @Entity
 @Table(name = "users")
-@ToString
 public class User extends AbstractNamedEntity {
     @Getter
     @Setter
@@ -73,4 +72,13 @@ public class User extends AbstractNamedEntity {
         this.roles = CollectionUtils.isEmpty(roles) ? EnumSet.noneOf(Role.class) : EnumSet.copyOf(roles);
     }
 
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", name=" + name +
+                ", email=" + email +
+                ", roles=" + roles +
+                "}";
+    }
 }
