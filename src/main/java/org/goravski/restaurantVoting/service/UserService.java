@@ -2,11 +2,7 @@ package org.goravski.restaurantVoting.service;
 
 import lombok.extern.slf4j.Slf4j;
 import org.goravski.restaurantVoting.model.User;
-import org.goravski.restaurantVoting.repository.JpaUserRepository;
 import org.goravski.restaurantVoting.repository.UserRepositoryImpl;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
@@ -18,8 +14,11 @@ import static org.goravski.restaurantVoting.util.ValidationUtil.*;
 @Service
 public class UserService {
 
-    @Autowired
-    private UserRepositoryImpl repository;
+    private final UserRepositoryImpl repository;
+
+    public UserService(UserRepositoryImpl repository) {
+        this.repository = repository;
+    }
 
     public User create(User user) {
         Assert.notNull(user, "user must not be null");
@@ -31,9 +30,9 @@ public class UserService {
     }
 
     public void delete(int id) {
-        log.debug("delete method start");
+        log.debug("delete(id={}) method start", id);
         checkNotFoundWithId(repository.delete(id), id);
-        log.debug("delete method end");
+        log.debug("delete(id={}) method end", id);
     }
 
     public User get(int id) {

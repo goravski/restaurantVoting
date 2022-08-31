@@ -1,12 +1,10 @@
-package org.goravski.restaurantVoting.service;
+package org.goravski.restaurantVoting;
 
 import org.goravski.restaurantVoting.model.Role;
 import org.goravski.restaurantVoting.model.User;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
-import java.util.List;
 
 import static org.goravski.restaurantVoting.model.AbstractBaseEntity.START_SEQ;
 

@@ -6,8 +6,8 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public class UserRepositoryImpl implements UserRepository{
-    JpaUserRepository jpaUserRepository;
+public class UserRepositoryImpl implements AbstractRepository <User> {
+    private final JpaUserRepository jpaUserRepository;
 
     public UserRepositoryImpl(JpaUserRepository jpaUserRepository) {
         this.jpaUserRepository = jpaUserRepository;

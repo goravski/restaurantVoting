@@ -1,6 +1,7 @@
 package org.goravski.restaurantVoting.service;
 
 import org.goravski.restaurantVoting.exception.NotFoundException;
+import org.goravski.restaurantVoting.model.AbstractBaseEntity;
 import org.goravski.restaurantVoting.model.Role;
 import org.goravski.restaurantVoting.model.User;
 
@@ -12,11 +13,12 @@ import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.jdbc.SqlConfig;
 import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
 
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
-import static org.goravski.restaurantVoting.service.UserTestData.*;
+
+import static org.goravski.restaurantVoting.UserTestData.*;
 import static org.junit.jupiter.api.Assertions.*;
+import static org.assertj.core.api.Assertions.assertThat;
 
 
 @SpringJUnitConfig(locations = {"classpath:spring/spring-app.xml", "classpath:spring/spring-db.xml"})
@@ -29,7 +31,7 @@ class UserServiceTest {
     @Test
     void get() {
         User user = service.get(ADMIN_ID);
-        assertTrue(user.equals(admin));
+        assertEquals(user, admin);
     }
 
     @Test
@@ -40,7 +42,7 @@ class UserServiceTest {
     @Test
     void getByEmail() {
         User user = service.getByEmail("admin@gmail.com");
-        assertTrue(user.equals(admin));
+        assertEquals(user, admin);
     }
 
     @Test
@@ -58,6 +60,12 @@ class UserServiceTest {
 
     @Test
     void update() {
+        User updated = getUpdated();
+        service.update(updated);
+        assertThat(service.get(USER_ID))
+                .usingRecursiveComparison()
+                .ignoringFields("registered")
+                .isEqualTo(updated);
     }
 
     @Test
@@ -75,6 +83,11 @@ class UserServiceTest {
     void getAll() {
         List<User> all = service.getAll();
         List<User> expected = Arrays.asList(admin, user, guest);
+        expected.sort(Comparator.comparing(AbstractBaseEntity::getId));
         assertTrue(all.containsAll(expected));
+        assertThat(all)
+                .usingRecursiveComparison()
+                .ignoringFields("registered", "roles")
+                .isEqualTo(expected);
     }
 }
