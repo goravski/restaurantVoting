@@ -10,9 +10,9 @@ public class ValidationUtil {
     }
 
     public static void checkNotFoundWithId(boolean found, int id) {
-        log.debug ("checkNotFoundWithId(bool) start");
+        log.debug ("checkNotFoundWithId({}, id={}) start", found, id);
         checkNotFound(found, "id=" + id);
-        log.debug ("checkNotFoundWithId(bool) end");
+        log.debug ("checkNotFoundWithId({}, id={}) end", found, id);
     }
 
     public static void checkNotFound(boolean found, String msg) {
