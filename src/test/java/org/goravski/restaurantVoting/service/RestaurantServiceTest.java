@@ -1,7 +1,6 @@
 package org.goravski.restaurantVoting.service;
 
 import lombok.extern.slf4j.Slf4j;
-import org.assertj.core.util.Arrays;
 import org.goravski.restaurantVoting.exception.NotFoundException;
 import org.goravski.restaurantVoting.model.Restaurant;
 
@@ -11,7 +10,7 @@ import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.jdbc.SqlConfig;
 import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
 
-import java.util.List;
+import java.util.*;
 
 import static org.goravski.restaurantVoting.RestaurantTestData.*;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -41,7 +40,7 @@ class RestaurantServiceTest {
         service.update(updated);
         assertThat(service.get(RESTAURANT1_ID))
                 .usingRecursiveComparison()
-                .ignoringFields("meals")
+                .ignoringFields("meals", "votes")
                 .isEqualTo(updated);
     }
 
@@ -61,7 +60,7 @@ class RestaurantServiceTest {
         Restaurant actual = service.get(RESTAURANT1_ID);
         assertEquals(actual, restaurant1);
         assertThat(actual).usingRecursiveComparison()
-                .ignoringFields("meals")
+                .ignoringFields("meals", "votes")
                 .isEqualTo(restaurant1);
     }
 
@@ -72,15 +71,18 @@ class RestaurantServiceTest {
 
     @Test
     void getAll() {
+        List <Restaurant> expected = List.of(restaurant1, restaurant2);
         List<Restaurant> all = service.getAll();
-        Restaurant[] expected = Arrays.array(restaurant1, restaurant2);
         assertThat(all).usingRecursiveComparison()
-                .ignoringFields("meals")
+                .ignoringFields("meals", "votes")
                 .isEqualTo(expected);
-
     }
 
     @Test
     void getWithMeals() {
+        Restaurant actual = service.getWithMeals(restaurant1.getId());
+        Restaurant expected = restaurant1;
+        assertThat(actual).usingRecursiveComparison().ignoringFields("meals", "votes").isEqualTo(expected);
+
     }
 }
