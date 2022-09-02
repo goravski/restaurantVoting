@@ -30,7 +30,7 @@ public class UserRepositoryImpl implements AbstractRepository <User> {
     }
 
     @Override
-    public User getByEmail(String email) {
+    public User getByString(String email) {
         return jpaUserRepository.getUserByEmail(email);
     }
 

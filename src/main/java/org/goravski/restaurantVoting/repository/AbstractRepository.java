@@ -9,7 +9,7 @@ public interface AbstractRepository <T>{
 
     T get(int id);
 
-    T getByEmail(String email);
+    T getByString(String string);
 
     List<T> getAll();
 

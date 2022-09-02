@@ -40,7 +40,7 @@ public class UserService {
     }
 
     public User getByEmail(String email) {
-        return repository.getByEmail(email);
+        return repository.getByString(email);
     }
 
     public List<User> getAll() {

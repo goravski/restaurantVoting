@@ -30,7 +30,7 @@ public class RestaurantRepositoryImpl implements AbstractRepository<Restaurant> 
     }
 
     @Override
-    public Restaurant getByEmail(String email) throws NotSupportedException{
+    public Restaurant getByString(String email) throws NotSupportedException{
         throw new NotSupportedException("This method doesn't supported");
     }
 
