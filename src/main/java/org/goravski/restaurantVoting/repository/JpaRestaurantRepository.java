@@ -17,6 +17,6 @@ public interface JpaRestaurantRepository extends JpaRepository<Restaurant, Integ
     int delete(@Param("id") int id);
 
     @EntityGraph(value = Restaurant.GRATH_WITH_MEALS)
-    @Query("SELECT r FROM Restaurant r WHERE r.id=?1")
+    @Query("SELECT r FROM Restaurant r JOIN FETCH r.meals WHERE r.id=?1")
     Restaurant getWithMeals(int id);
 }
