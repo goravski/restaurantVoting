@@ -33,10 +33,15 @@ public class Restaurant extends AbstractNamedEntity {
     public Restaurant(Integer id, String name) {
         super(id, name);
     }
+    public Restaurant(Integer id, String name, Meal ... meal) {
+        super(id, name);
+        this.meals = List.of(meal);
+    }
 
     public Restaurant(Restaurant r) {
         this(r.id, r.name);
     }
+
 
     public void setMeals(Set<Meal> meals) {
         this.meals = meals.isEmpty() ? List.of() : List.copyOf(meals);
@@ -47,7 +52,7 @@ public class Restaurant extends AbstractNamedEntity {
         return "Restaurant{" +
                 "id=" + id +
                 ", name=" + name +
-//                ", meals=" + meals +
+                ",meals=" + meals +
                 "} ";
     }
 }
