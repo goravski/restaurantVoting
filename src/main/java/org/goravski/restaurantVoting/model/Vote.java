@@ -13,22 +13,17 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @Entity
 @Table(name = "votes")
-public class Vote {
-    @Id
-    Integer id;
-
-    @Column(name = "votes")
-    private boolean vote;
+public class Vote extends AbstractBaseEntity{
 
     @Column(name = "date_vote", nullable = false)
     @NotNull
     private LocalDateTime dateVote;
 
-    @OneToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "restaurant_id", nullable = false)
     private Restaurant restaurant;
 
-    @OneToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
