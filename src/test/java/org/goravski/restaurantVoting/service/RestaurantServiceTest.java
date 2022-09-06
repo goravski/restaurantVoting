@@ -1,6 +1,7 @@
 package org.goravski.restaurantVoting.service;
 
 import lombok.extern.slf4j.Slf4j;
+import org.goravski.restaurantVoting.MealTestData;
 import org.goravski.restaurantVoting.exception.NotFoundException;
 import org.goravski.restaurantVoting.model.Restaurant;
 
@@ -82,7 +83,7 @@ class RestaurantServiceTest {
     void getWithMeals() {
         Restaurant actual = service.getWithMeals(restaurant1.getId());
         Restaurant expected = restaurant1;
-        assertThat(actual).usingRecursiveComparison().ignoringFields("meals", "votes").isEqualTo(expected);
+        assertEquals(actual, expected);
 
     }
 }
