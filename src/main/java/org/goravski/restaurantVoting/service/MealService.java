@@ -2,8 +2,7 @@ package org.goravski.restaurantVoting.service;
 
 import lombok.extern.slf4j.Slf4j;
 import org.goravski.restaurantVoting.model.Meal;
-import org.goravski.restaurantVoting.model.Restaurant;
-import org.goravski.restaurantVoting.repository.MealRepositoryImpl;
+import org.goravski.restaurantVoting.repository.MealRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
@@ -14,24 +13,24 @@ import static org.goravski.restaurantVoting.util.ValidationUtil.checkNotFoundWit
 @Service
 @Slf4j
 public class MealService {
-   private final MealRepositoryImpl repository;
+   private final MealRepository repository;
 
-    public MealService(MealRepositoryImpl repository) {
+    public MealService(MealRepository repository) {
         this.repository = repository;
     }
 
-    public Meal create(Meal meal) {
+    public Meal create(Meal meal, int restaurantId) {
         log.debug("create(Meal={}) method start", meal.toString());
         Assert.notNull(meal, "meal must not be null");
-        return repository.save(meal);
+        return repository.save(meal, restaurantId);
 
     }
 
-    public void update(Meal meal) {
-        log.debug("update(Meal={}) method start", meal);
+    public void update(Meal meal, int restaurantId) {
+        log.debug("update(Meal={} RestaurantId ={}) method start", meal, restaurantId);
         Assert.notNull(meal, "meal must not be null");
-        repository.save(meal);
-        log.debug("update(Meal={}) method end", meal);
+        repository.save(meal, restaurantId);
+        log.debug("update(Meal={} RestaurantId ={}) method END", meal, restaurantId);
     }
 
     public void delete(int id) {

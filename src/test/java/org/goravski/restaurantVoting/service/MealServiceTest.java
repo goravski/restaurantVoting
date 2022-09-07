@@ -1,7 +1,7 @@
 package org.goravski.restaurantVoting.service;
 
 import lombok.extern.slf4j.Slf4j;
-import org.goravski.restaurantVoting.MealTestData;
+import org.goravski.restaurantVoting.RestaurantTestData;
 import org.goravski.restaurantVoting.exception.NotFoundException;
 import org.goravski.restaurantVoting.model.Meal;
 import org.junit.jupiter.api.Test;
@@ -26,18 +26,18 @@ class MealServiceTest {
 
     @Test
     void create() {
-        Meal actual = service.create(getNew());
+        Meal actual = service.create(getNew(), RestaurantTestData.RESTAURANT1_ID);
         Meal expected = getNew();
         assertThat(actual)
                 .usingRecursiveComparison()
-                .ignoringFields("id", "restaurant")
+                .ignoringFields("date", "restaurant")
                 .isEqualTo(expected);
     }
 
     @Test
     void update() {
         Meal actual = getUpdated();
-        service.update(actual);
+        service.update(actual, RestaurantTestData.RESTAURANT1_ID);
         assertThat(service.get(Meal1_ID))
                 .usingRecursiveComparison()
                 .ignoringFields("restaurant")
@@ -61,9 +61,10 @@ class MealServiceTest {
         assertEquals(actual, meal1);
         System.out.println("actual " + actual);
         System.out.println("expected "+meal1);
-//        assertThat(actual)
-//                .usingRecursiveComparison()
-//                .isEqualTo(meal1);
+        assertThat(actual)
+                .usingRecursiveComparison()
+                .ignoringFields("restaurant")
+                .isEqualTo(meal1);
     }
 
     @Test

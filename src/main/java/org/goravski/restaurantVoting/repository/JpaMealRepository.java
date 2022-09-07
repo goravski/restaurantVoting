@@ -17,7 +17,7 @@ public interface JpaMealRepository extends JpaRepository<Meal, Integer> {
     int delete(@Param("id") int id);
 
     @Query("SELECT m FROM Meal m WHERE m.restaurant.id=:restaurantId ORDER BY m.date DESC")
-    List<Meal> getAll (@Param("restaurantId")int restaurantId);
+    List<Meal> getAll(@Param("restaurantId") int restaurantId);
 
 
 }
