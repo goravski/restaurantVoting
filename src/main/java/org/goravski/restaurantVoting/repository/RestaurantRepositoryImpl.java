@@ -20,6 +20,11 @@ public class RestaurantRepositoryImpl implements AbstractRepository<Restaurant> 
     }
 
     @Override
+    public Restaurant save(Restaurant restaurant, int id) {
+        throw new NotSupportedException("This method is not supported in RestaurantRepositoryImpl.class");
+    }
+
+    @Override
     public boolean delete(int id) {
         return repository.delete(id) != 0;
     }

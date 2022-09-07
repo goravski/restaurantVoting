@@ -5,6 +5,8 @@ import java.util.List;
 public interface AbstractRepository <T>{
     T save(T t);
 
+    T save(T t, int id);
+
     boolean delete(int id);
 
     T get(int id);

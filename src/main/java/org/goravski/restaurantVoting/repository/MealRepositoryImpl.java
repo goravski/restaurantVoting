@@ -7,26 +7,38 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public class MealRepositoryImpl implements AbstractRepository<Meal> {
-    private final JpaMealRepository repository;
+public class MealRepositoryImpl implements MealRepository {
+    private final JpaMealRepository mealRepository;
+    private JpaRestaurantRepository restaurantRepository;
 
-    public MealRepositoryImpl(JpaMealRepository repository) {
-        this.repository = repository;
+    public MealRepositoryImpl(JpaMealRepository repository, JpaRestaurantRepository restaurantRepository) {
+        this.mealRepository = repository;
+        this.restaurantRepository = restaurantRepository;
     }
 
     @Override
     public Meal save(Meal meal) {
-        return repository.save(meal);
+        return mealRepository.save(meal);
+    }
+
+
+    @Override
+    public Meal save(Meal meal, int restaurantId) {
+        if (!meal.isNew() && restaurantRepository.findById(restaurantId) == null) {
+            return null;
+        }
+        meal.setRestaurant(restaurantRepository.getReferenceById(restaurantId));
+        return mealRepository.save(meal);
     }
 
     @Override
     public boolean delete(int id) {
-        return repository.delete(id) != 0;
+        return mealRepository.delete(id) != 0;
     }
 
     @Override
     public Meal get(int id) {
-        return repository.findById(id).orElse(null);
+        return mealRepository.findById(id).orElse(null);
     }
 
     @Override
@@ -35,7 +47,7 @@ public class MealRepositoryImpl implements AbstractRepository<Meal> {
     }
 
     @Override
-    public List <Meal> getAll() {
-        return repository.findAll();
+    public List<Meal> getAll() {
+        return mealRepository.findAll();
     }
 }

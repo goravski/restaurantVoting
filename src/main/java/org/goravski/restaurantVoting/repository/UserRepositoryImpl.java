@@ -1,5 +1,6 @@
 package org.goravski.restaurantVoting.repository;
 
+import org.goravski.restaurantVoting.exception.NotSupportedException;
 import org.goravski.restaurantVoting.model.User;
 import org.springframework.stereotype.Repository;
 
@@ -17,6 +18,11 @@ public class UserRepositoryImpl implements AbstractRepository <User> {
     @Override
     public User save(User user) {
         return jpaUserRepository.save(user);
+    }
+
+    @Override
+    public User save(User user, int id) {
+        throw new NotSupportedException("This method is not supported in UserRepositoryImpl.class");
     }
 
     @Override
