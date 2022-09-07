@@ -30,7 +30,7 @@ class MealServiceTest {
         Meal expected = getNew();
         assertThat(actual)
                 .usingRecursiveComparison()
-                .ignoringFields("date", "restaurant")
+                .ignoringFields("id", "restaurant")
                 .isEqualTo(expected);
     }
 
