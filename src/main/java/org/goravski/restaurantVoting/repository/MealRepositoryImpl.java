@@ -11,8 +11,8 @@ public class MealRepositoryImpl implements MealRepository {
     private final JpaMealRepository mealRepository;
     private JpaRestaurantRepository restaurantRepository;
 
-    public MealRepositoryImpl(JpaMealRepository repository, JpaRestaurantRepository restaurantRepository) {
-        this.mealRepository = repository;
+    public MealRepositoryImpl(JpaMealRepository mealRepository, JpaRestaurantRepository restaurantRepository) {
+        this.mealRepository = mealRepository;
         this.restaurantRepository = restaurantRepository;
     }
 
