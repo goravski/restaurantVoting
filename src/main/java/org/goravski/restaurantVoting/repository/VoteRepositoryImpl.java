@@ -7,7 +7,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public class VoteRepositoryImpl implements AbstractAuthorizedRepository<Vote> {
+public class VoteRepositoryImpl implements VoteRepository {
     private JpaVoteRepository voteRepository;
     private JpaRestaurantRepository restaurantRepository;
     private JpaUserRepository userRepository;
@@ -27,7 +27,12 @@ public class VoteRepositoryImpl implements AbstractAuthorizedRepository<Vote> {
 
     @Override
     public Vote save(Vote vote, int authId, int id) {
-        return null;
+        if (!vote.isNew() && get(vote.id(), authId) == null) {
+            return null;
+        }
+        vote.setRestaurant(restaurantRepository.getReferenceById(id));
+        vote.setUser(userRepository.getReferenceById(authId));
+        return voteRepository.save(vote);
     }
 
     @Override
