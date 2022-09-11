@@ -1,13 +1,14 @@
-package org.goravski.restaurantVoting.repository;
+package org.goravski.restaurantVoting.repository.user;
 
 import org.goravski.restaurantVoting.exception.NotSupportedException;
 import org.goravski.restaurantVoting.model.User;
+import org.goravski.restaurantVoting.repository.AbstractRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
 @Repository
-public class UserRepositoryImpl implements AbstractRepository <User> {
+public class UserRepositoryImpl implements AbstractRepository<User> {
     private final JpaUserRepository jpaUserRepository;
 
     public UserRepositoryImpl(JpaUserRepository jpaUserRepository) {

@@ -1,7 +1,8 @@
-package org.goravski.restaurantVoting.repository;
+package org.goravski.restaurantVoting.repository.restaurant;
 
 import org.goravski.restaurantVoting.exception.NotSupportedException;
 import org.goravski.restaurantVoting.model.Restaurant;
+import org.goravski.restaurantVoting.repository.AbstractRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;

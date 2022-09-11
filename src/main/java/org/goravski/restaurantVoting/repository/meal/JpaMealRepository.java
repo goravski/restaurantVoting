@@ -1,4 +1,4 @@
-package org.goravski.restaurantVoting.repository;
+package org.goravski.restaurantVoting.repository.meal;
 
 import org.goravski.restaurantVoting.model.Meal;
 import org.springframework.data.jpa.repository.JpaRepository;

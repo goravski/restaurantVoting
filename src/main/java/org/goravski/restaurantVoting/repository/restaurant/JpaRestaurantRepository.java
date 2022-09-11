@@ -1,4 +1,4 @@
-package org.goravski.restaurantVoting.repository;
+package org.goravski.restaurantVoting.repository.restaurant;
 
 import org.goravski.restaurantVoting.model.Restaurant;
 import org.springframework.data.jpa.repository.EntityGraph;

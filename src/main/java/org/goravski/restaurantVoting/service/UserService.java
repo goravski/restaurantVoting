@@ -2,7 +2,7 @@ package org.goravski.restaurantVoting.service;
 
 import lombok.extern.slf4j.Slf4j;
 import org.goravski.restaurantVoting.model.User;
-import org.goravski.restaurantVoting.repository.UserRepositoryImpl;
+import org.goravski.restaurantVoting.repository.user.UserRepositoryImpl;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
