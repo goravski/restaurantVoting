@@ -52,6 +52,7 @@ CREATE TABLE votes
     user_id       INTEGER                 NOT NULL,
     restaurant_id INTEGER                 NOT NULL,
     date_vote     TIMESTAMP DEFAULT now() NOT NULL,
+    vote          BOOLEAN   DEFAULT TRUE,
     FOREIGN KEY (restaurant_id) REFERENCES RESTAURANTS (id) ON DELETE CASCADE
 );
 
