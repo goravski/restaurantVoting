@@ -11,6 +11,7 @@ public class MealTestData {
 
     public static final int Meal1_ID = RestaurantTestData.RESTAURANT1_ID + 2;
 
+
     public static final Meal meal1 = new Meal(
             Meal1_ID, "Potatoes", 10.0, of(2020, Month.JANUARY, 30, 10, 0)
     );
@@ -26,7 +27,7 @@ public class MealTestData {
         return new Meal(null, "new", 0.0, of(2020, Month.JANUARY, 30, 10, 0));
     }
 
-    public static Meal getUpdated() {
+    public static Meal getUpdatedMeal() {
         return new Meal(Meal1_ID, "updatedMeal", 20.0, meal1.getDate().plus(1, ChronoUnit.MINUTES));
     }
 
