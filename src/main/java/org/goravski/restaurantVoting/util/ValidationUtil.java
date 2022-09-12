@@ -36,7 +36,9 @@ public class ValidationUtil {
 
     private static void checkOutOfTime(boolean timeIs) {
         if(timeIs){
-            throw new NotAcceptableDateException(String.format("Voting time is ended at %s o'clock", ConstantUtil.MAX_TIME_FOR_VOTING));
+            throw new NotAcceptableDateException(
+                    String.format("Voting time is ended at %s o'clock", ConstantUtil.MAX_TIME_FOR_VOTING)
+            );
         }
     }
 }

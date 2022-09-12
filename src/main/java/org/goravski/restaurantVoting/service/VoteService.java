@@ -23,6 +23,7 @@ public class VoteService {
     public Vote create(Vote vote, int userId, int restaurantId) {
         log.debug("create(Vote={}) method start", vote);
         Assert.notNull(vote, "vote must not be null");
+        checkTime(vote);
         return repository.save(vote, userId, restaurantId);
     }
 
