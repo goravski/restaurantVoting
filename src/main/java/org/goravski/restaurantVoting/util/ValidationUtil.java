@@ -24,10 +24,6 @@ public class ValidationUtil {
         }
     }
 
-    public static <T> T checkNotFound(T object, String msg) {
-        checkNotFound(object != null, msg);
-        return object;
-    }
     public static void checkTime (Vote vote){
         log.debug("checkTime ({}) START", vote.getUser().getName());
         checkOutOfTime (vote.getDateVote().toLocalTime().compareTo(ConstantUtil.MAX_TIME_FOR_VOTING) >= 0);

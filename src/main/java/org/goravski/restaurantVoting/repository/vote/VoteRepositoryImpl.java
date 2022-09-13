@@ -10,9 +10,9 @@ import java.util.List;
 
 @Repository
 public class VoteRepositoryImpl implements VoteRepository {
-    private JpaVoteRepository voteRepository;
-    private JpaRestaurantRepository restaurantRepository;
-    private JpaUserRepository userRepository;
+    private final JpaVoteRepository  voteRepository;
+    private final JpaRestaurantRepository restaurantRepository;
+    private final JpaUserRepository userRepository;
 
     public VoteRepositoryImpl(JpaVoteRepository voteRepository, JpaRestaurantRepository restaurantRepository,
                               JpaUserRepository userRepository) {
