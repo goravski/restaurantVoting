@@ -74,6 +74,8 @@ class RestaurantServiceTest {
     void getAll() {
         List <Restaurant> expected = List.of(restaurant1, restaurant2);
         List<Restaurant> all = service.getAll();
+        log.debug("expected={}", expected);
+        log.debug("actual={}", all);
         assertThat(all).usingRecursiveComparison()
                 .ignoringFields("meals", "votes")
                 .isEqualTo(expected);
@@ -83,6 +85,8 @@ class RestaurantServiceTest {
     void getWithMeals() {
         Restaurant actual = service.getWithMeals(restaurant1.getId());
         Restaurant expected = restaurant1;
+        log.debug("expected={}", expected);
+        log.debug("actual={}", actual);
         assertEquals(actual, expected);
 
     }

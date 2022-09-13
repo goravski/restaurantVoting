@@ -52,7 +52,6 @@ public class Restaurant extends AbstractNamedEntity {
         return "Restaurant{" +
                 "id=" + id +
                 ", name=" + name +
-                ",meals=" + meals +
                 "} ";
     }
 }
