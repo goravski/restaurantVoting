@@ -1,9 +1,9 @@
 package org.goravski.restaurantVoting.service;
 
-import lombok.extern.slf4j.Slf4j;
 import org.goravski.restaurantVoting.RestaurantTestData;
 import org.goravski.restaurantVoting.exception.NotAcceptableDateException;
 import org.goravski.restaurantVoting.exception.NotFoundException;
+import org.goravski.restaurantVoting.model.AbstractBaseEntity;
 import org.goravski.restaurantVoting.model.Vote;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +11,7 @@ import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.jdbc.SqlConfig;
 import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
 
+import java.util.Comparator;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -19,7 +20,7 @@ import static org.goravski.restaurantVoting.UserTestData.USER_ID;
 import static org.goravski.restaurantVoting.VoteTestData.*;
 import static org.junit.jupiter.api.Assertions.*;
 
-@Slf4j
+
 @SpringJUnitConfig(locations = {"classpath:spring/spring-app.xml", "classpath:spring/spring-db.xml"})
 @Sql(scripts = {"classpath:db/initDB_hsql.sql", "classpath:db/populateDB.sql"}, config = @SqlConfig(encoding = "UTF-8"))
 class VoteServiceTest {
@@ -71,7 +72,7 @@ class VoteServiceTest {
     @Test
     void get() {
         Vote actual = service.get(VOTE1_ID, USER_ID);
-        assertEquals(actual, VOTE1);
+        assertEquals(actual, vote1);
     }
 
     @Test
@@ -81,8 +82,12 @@ class VoteServiceTest {
 
     @Test
     void getAll() {
+        List<Vote> expected = votes;
         List<Vote> actual = service.getAll(USER_ID);
-        List<Vote> expected = VOTES;
-        assertEquals(expected, actual);
+        actual.sort(Comparator.comparing(AbstractBaseEntity::getId));
+        assertThat(actual).usingRecursiveComparison()
+                .ignoringFields("user", "restaurant")
+                .isEqualTo(expected);
+
     }
 }
