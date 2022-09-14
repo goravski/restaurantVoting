@@ -5,6 +5,7 @@ import org.goravski.restaurantVoting.model.Vote;
 import org.goravski.restaurantVoting.repository.restaurant.JpaRestaurantRepository;
 import org.goravski.restaurantVoting.repository.user.JpaUserRepository;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -28,6 +29,7 @@ public class VoteRepositoryImpl implements VoteRepository {
     }
 
     @Override
+    @Transactional
     public Vote save(Vote vote, int authId, int id) {
         if (!vote.isNew() && get(vote.id(), authId) == null) {
             return null;
