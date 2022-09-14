@@ -25,9 +25,9 @@ public class ValidationUtil {
     }
 
     public static void checkTime (Vote vote){
-        log.debug("checkTime ({}) START", vote.getUser().getName());
+        log.debug("checkTime ({}) START", vote.getDateVote());
         checkOutOfTime (vote.getDateVote().toLocalTime().compareTo(ConstantUtil.MAX_TIME_FOR_VOTING) >= 0);
-        log.debug("checkTime ({}) END", vote.getUser().getName());
+        log.debug("checkTime ({}) END", vote.getDateVote());
     }
 
     private static void checkOutOfTime(boolean timeIs) {

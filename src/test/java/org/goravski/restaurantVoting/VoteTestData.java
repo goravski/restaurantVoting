@@ -28,11 +28,7 @@ public class VoteTestData {
     }
 
     public static Vote newVote() {
-        return new Vote(null,
-                of(2020, Month.FEBRUARY, 1, 10, 0),
-                true,
-                restaurant1,
-                user);
+        return new Vote(null, of(2020, Month.FEBRUARY, 1, 10, 0));
     }
 
     public static List<Vote> votes = List.of(vote1, vote2);
