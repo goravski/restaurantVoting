@@ -8,6 +8,8 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 
 @Transactional(readOnly = true)
 public interface JpaRestaurantRepository extends JpaRepository<Restaurant, Integer> {
@@ -16,7 +18,10 @@ public interface JpaRestaurantRepository extends JpaRepository<Restaurant, Integ
     @Query("DELETE FROM Restaurant r WHERE r.id=:id")
     int delete(@Param("id") int id);
 
-    @EntityGraph(value = Restaurant.GRATH_WITH_MEALS)
-    @Query("SELECT r FROM Restaurant r JOIN FETCH r.meals WHERE r.id=?1")
+    @EntityGraph(value = Restaurant.GRATH_WITH_MEALS, type = EntityGraph.EntityGraphType.LOAD)
+    @Query("SELECT r FROM Restaurant r WHERE r.id=?1")
     Restaurant getWithMeals(int id);
+
+    @Query("SELECT r FROM Restaurant  r LEFT JOIN FETCH r.meals ")
+    public List<Restaurant> getAll();
 }
