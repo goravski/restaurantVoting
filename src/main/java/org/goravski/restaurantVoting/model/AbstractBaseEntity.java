@@ -1,14 +1,18 @@
 package org.goravski.restaurantVoting.model;
 
 
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import org.goravski.restaurantVoting.util.HasId;
 import org.hibernate.Hibernate;
 
 import javax.persistence.*;
 
+import static com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility.*;
+
 
 @MappedSuperclass
 @Access(AccessType.FIELD)
+@JsonAutoDetect(fieldVisibility = ANY, getterVisibility = NONE, isGetterVisibility = NONE, setterVisibility = NONE)
 public abstract class AbstractBaseEntity implements HasId {
     public static final int START_SEQ = 100000;
 
