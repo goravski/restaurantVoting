@@ -19,7 +19,7 @@ public class MealTestData {
             Meal1_ID + 1, "Soup", 15.0, of(2020, Month.JANUARY, 30, 10, 0)
     );
 
-    public static Meal getNew() {
+    public static Meal getNewMeal() {
         return new Meal(null, "new", 1.0, of(2020, Month.JANUARY, 30, 10, 0));
     }
 
