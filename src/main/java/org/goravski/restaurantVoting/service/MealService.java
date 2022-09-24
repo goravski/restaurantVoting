@@ -19,18 +19,18 @@ public class MealService {
         this.repository = repository;
     }
 
-    public Meal create(Meal meal, int restaurantId) {
+    public Meal create(Meal meal) {
         log.debug("create(Meal={}) method start", meal.toString());
         Assert.notNull(meal, "meal must not be null");
-        return repository.save(meal, restaurantId);
+        return repository.save(meal);
 
     }
 
-    public void update(Meal meal, int restaurantId) {
-        log.debug("update(Meal={} RestaurantId ={}) method start", meal, restaurantId);
+    public void update(Meal meal, int id) {
+        log.debug("update(Meal={} id ={}) method start", meal.getId(), id);
         Assert.notNull(meal, "meal must not be null");
-        repository.save(meal, restaurantId);
-        log.debug("update(Meal={} RestaurantId ={}) method END", meal, restaurantId);
+        repository.save(meal, id);
+        log.debug("update(Meal={} id ={}) method END", meal.getId(), id);
     }
 
     public void delete(int id) {
