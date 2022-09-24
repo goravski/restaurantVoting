@@ -34,6 +34,10 @@ public class Meal extends AbstractNamedEntity {
         this.date = date;
     }
 
+    public Meal(Meal m) {
+        this(m.id, m.name, m.price, m.date);
+    }
+
     @Override
     public String toString() {
         return "Meal{" +
@@ -41,6 +45,7 @@ public class Meal extends AbstractNamedEntity {
                 ", name='" + name + '\'' +
                 ", price=" + price +
                 ", date=" + date +
+                ", restaurant =" + restaurant +
                 "} ";
     }
 }
