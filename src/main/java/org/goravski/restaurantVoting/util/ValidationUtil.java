@@ -3,6 +3,7 @@ package org.goravski.restaurantVoting.util;
 import lombok.extern.slf4j.Slf4j;
 import org.goravski.restaurantVoting.exception.NotAcceptableDateException;
 import org.goravski.restaurantVoting.exception.NotFoundException;
+import org.goravski.restaurantVoting.model.AbstractBaseEntity;
 import org.goravski.restaurantVoting.model.Vote;
 
 @Slf4j
@@ -35,6 +36,14 @@ public class ValidationUtil {
             throw new NotAcceptableDateException(
                     String.format("Voting time is ended at %s o'clock", ConstantUtil.MAX_TIME_FOR_VOTING)
             );
+        }
+    }
+    public static void assureIdConsistent(AbstractBaseEntity entity, int id) {
+
+        if (entity.isNew()) {
+            entity.setId(id);
+        } else if (entity.id() != id) {
+            throw new IllegalArgumentException(entity + " must be with id=" + id);
         }
     }
 }
