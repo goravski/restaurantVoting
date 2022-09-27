@@ -28,7 +28,7 @@ public class AdminMealController {
 
     @GetMapping("/{id}")
     public Meal getById(@PathVariable int id) {
-        log.info("getById({})", id);
+        log.info("Method GET: getById({})", id);
         return mealService.get(id);
     }
 
@@ -41,9 +41,11 @@ public class AdminMealController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public ResponseEntity<Meal> create(@RequestParam int id, @RequestBody Meal meal) {
-        log.info("create({}, {})", meal, id);
-        Meal createdMeal = mealService.create(meal, id);
+    public ResponseEntity<Meal> create(@RequestBody Meal eMeal) {
+//        log.info("create(meal={})", eMeal);
+        Meal newMeal = new Meal(eMeal);
+        newMeal.setRestaurant(eMeal.getRestaurant());
+        Meal createdMeal = mealService.create(newMeal);
         URI uriCreatedMeal = ServletUriComponentsBuilder.fromCurrentContextPath()
                 .path("/admin/meals/{id}")
                 .buildAndExpand(createdMeal.getId())
@@ -51,10 +53,10 @@ public class AdminMealController {
         return ResponseEntity.created(uriCreatedMeal).body(createdMeal);
     }
 
-    @PutMapping
+    @PutMapping(value = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void update(@RequestParam int id, @RequestBody Meal meal) {
-        log.info("update({}, {})", meal, id);
-        mealService.update(meal, id);
+    public void update(@RequestParam int id, @RequestBody Meal eMeal) {
+//        log.info("update(meal={}, id={})", eMeal, id);
+        mealService.update(eMeal);
     }
 }
