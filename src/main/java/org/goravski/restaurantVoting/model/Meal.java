@@ -40,7 +40,7 @@ public class Meal extends AbstractNamedEntity {
 
     @Override
     public String toString() {
-        return "Meal{" +
+        return "{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", price=" + price +

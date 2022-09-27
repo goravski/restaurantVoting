@@ -26,11 +26,11 @@ public class MealService {
 
     }
 
-    public void update(Meal meal, int id) {
-        log.debug("update(Meal={} id ={}) method start", meal.getId(), id);
+    public void update(Meal meal) {
+        log.debug("update(Meal={} ) method start", meal);
         Assert.notNull(meal, "meal must not be null");
-        repository.save(meal, id);
-        log.debug("update(Meal={} id ={}) method END", meal.getId(), id);
+        repository.save(meal);
+        log.debug("update(Meal={} id ={}) method END", meal);
     }
 
     public void delete(int id) {

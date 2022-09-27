@@ -39,7 +39,7 @@ class MealServiceTest {
     @Test
     void update() {
         Meal actual = getUpdatedMeal();
-        service.update(actual, RESTAURANT1_ID);
+        service.update(actual);
         assertThat(service.get(Meal1_ID))
                 .usingRecursiveComparison()
                 .ignoringFields("restaurant")

@@ -24,11 +24,11 @@ public class MealRepositoryImpl implements MealRepository {
 
 
     @Override
-    public Meal save(Meal meal, int restaurantId) {
-        if (!meal.isNew() && restaurantRepository.findById(restaurantId) == null) {
+    public Meal save(Meal meal, int id) {
+        if (!meal.isNew() && restaurantRepository.findById(id) == null) {
             return null;
         }
-        meal.setRestaurant(restaurantRepository.getReferenceById(restaurantId));
+        meal.setRestaurant(restaurantRepository.getReferenceById(id));
         return mealRepository.save(meal);
     }
 
