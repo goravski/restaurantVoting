@@ -13,6 +13,8 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import java.net.URI;
 import java.util.List;
 
+import static org.goravski.restaurantVoting.util.ValidationUtil.assureIdConsistent;
+
 @Slf4j
 @RestController
 @RequestMapping(value = "/admin/meals", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -42,7 +44,6 @@ public class AdminMealController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<Meal> create(@RequestBody Meal eMeal) {
-//        log.info("create(meal={})", eMeal);
         Meal newMeal = new Meal(eMeal);
         newMeal.setRestaurant(eMeal.getRestaurant());
         Meal createdMeal = mealService.create(newMeal);
@@ -55,8 +56,9 @@ public class AdminMealController {
 
     @PutMapping(value = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void update(@RequestParam int id, @RequestBody Meal eMeal) {
-//        log.info("update(meal={}, id={})", eMeal, id);
+    public void update(@PathVariable int id, @RequestBody Meal eMeal) {
+        log.info("update(meal={}, id={})", eMeal, id);
+        assureIdConsistent(eMeal, id);
         mealService.update(eMeal);
     }
 }
