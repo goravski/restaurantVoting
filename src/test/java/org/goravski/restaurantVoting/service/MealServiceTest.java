@@ -27,7 +27,6 @@ class MealServiceTest {
     @Test
     void create() {
         Meal newMeal = getNewMeal();
-        newMeal.setRestaurant(restaurant1);
         Meal actual = service.create(newMeal);
         Meal expected = getNewMeal();
         assertThat(actual)

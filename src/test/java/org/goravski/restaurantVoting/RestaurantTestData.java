@@ -10,7 +10,7 @@ public class RestaurantTestData {
     public static final int RESTAURANT1_ID = START_SEQ + 3;
 
 
-    public static final Restaurant restaurant1 = new Restaurant(RESTAURANT1_ID, "restaurant1", MealTestData.meal1);
+    public static final Restaurant restaurant1 = new Restaurant(RESTAURANT1_ID, "restaurant1");
     public static final Restaurant restaurant2 = new Restaurant(RESTAURANT1_ID + 1, "restaurant2", MealTestData.meal2);
 
 

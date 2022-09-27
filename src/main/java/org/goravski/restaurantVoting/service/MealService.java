@@ -20,17 +20,17 @@ public class MealService {
     }
 
     public Meal create(Meal meal) {
-        log.debug("create(Meal={}) method start", meal.toString());
+        log.debug("create(Meal={}) method start", meal.getName());
         Assert.notNull(meal, "meal must not be null");
         return repository.save(meal);
 
     }
 
     public void update(Meal meal) {
-        log.debug("update(Meal={} ) method start", meal);
+        log.debug("update(Meal={} ) method start", meal.getId());
         Assert.notNull(meal, "meal must not be null");
         repository.save(meal);
-        log.debug("update(Meal={} id ={}) method END", meal);
+        log.debug("update(Meal={}) method END", meal.getId());
     }
 
     public void delete(int id) {
