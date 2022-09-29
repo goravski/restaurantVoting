@@ -35,6 +35,7 @@ public class AdminRestaurantController {
 
     @GetMapping("/{id}/with-meals")
     public Restaurant getWithMeals(@PathVariable int id) {
+        log.info("getWithMeals {}", id);
         return service.getWithMeals(id);
     }
 
@@ -54,7 +55,6 @@ public class AdminRestaurantController {
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Restaurant> create(@RequestBody Restaurant eRestaurant) {
         Restaurant restaurant = new Restaurant(eRestaurant);
-        restaurant.setMeals(eRestaurant.getMeals());
         Restaurant restaurantCreated = service.create(restaurant);
         URI uriOfNewResource = ServletUriComponentsBuilder.fromCurrentContextPath()
                 .path("/admin/restaurant/id")

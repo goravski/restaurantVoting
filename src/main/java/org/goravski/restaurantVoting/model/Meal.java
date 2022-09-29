@@ -1,6 +1,8 @@
 package org.goravski.restaurantVoting.model;
 
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.*;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
@@ -25,7 +27,7 @@ public class Meal extends AbstractNamedEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "restaurant_id")
     @OnDelete(action = OnDeleteAction.CASCADE)
-
+    @JsonBackReference
     private Restaurant restaurant;
 
     public Meal(Integer id, String name, double price, LocalDateTime date) {

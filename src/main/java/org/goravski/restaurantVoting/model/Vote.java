@@ -1,5 +1,6 @@
 package org.goravski.restaurantVoting.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.*;
 
 import javax.persistence.*;
@@ -29,6 +30,7 @@ public class Vote extends AbstractBaseEntity {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "restaurant_id", nullable = false)
+    @JsonBackReference
     private Restaurant restaurant;
 
     @ManyToOne(fetch = FetchType.LAZY)
