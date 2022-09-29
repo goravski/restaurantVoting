@@ -2,7 +2,9 @@ package org.goravski.restaurantVoting.json;
 
 import lombok.extern.slf4j.Slf4j;
 import org.goravski.restaurantVoting.MealTestData;
+import org.goravski.restaurantVoting.RestaurantTestData;
 import org.goravski.restaurantVoting.model.Meal;
+import org.goravski.restaurantVoting.model.Restaurant;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
@@ -28,4 +30,12 @@ class JsonUtilTest {
         assertEquals(meals, meals2);
     }
 
+    @Test
+    void readWriteValueWithNull() {
+        String json = JsonUtil.writeValue(RestaurantTestData.restaurant1);
+        log.info(json);
+        Restaurant restaurant = JsonUtil.readValue(json, Restaurant.class);
+        log.info(restaurant.toString());
+        assertEquals(restaurant, RestaurantTestData.restaurant1);
+    }
 }
