@@ -5,6 +5,8 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectReader;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Stream;
@@ -39,7 +41,7 @@ public class JsonUtil {
         }
     }
 
-    public static <T> String writeIgnoreFields(T obj, String... ignoreFields) {
+    public static <T> String writeFromObjectIgnoreFields(T obj, String... ignoreFields) {
         try {
             Map<String, Object> map = getMapper().convertValue(obj, new TypeReference<Map<String, Object>>() {
             });
@@ -48,5 +50,21 @@ public class JsonUtil {
         } catch (JsonProcessingException e) {
             throw new IllegalStateException("invalid write ti JSON: \n'" + obj + "'", e);
         }
+    }
+
+    public static <T> String writeFromJsonIgnoreFields(String json, Class<T> clazz, String... ignoreFields) {
+        List <String> newJson = new ArrayList<>();
+        for (T obj : readValues(json, clazz)){
+            newJson.add(writeFromObjectIgnoreFields(obj, ignoreFields));
+        }
+        return newJson.toString().replaceAll(" ", "");
+    }
+
+    public static <T> String writeFromSomeObjectsIgnoreFields(List <T> objs, String... ignoreFields) {
+        List <String> objJson = new ArrayList<>();
+        for (T obj : objs){
+            objJson.add(writeFromObjectIgnoreFields(obj, ignoreFields));
+        }
+        return objJson.toString().replaceAll(" ", "");
     }
 }
