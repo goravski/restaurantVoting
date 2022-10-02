@@ -12,6 +12,8 @@ import java.util.List;
 
 
 @NoArgsConstructor
+@Setter
+@Getter
 @Entity
 @NamedEntityGraph(name = Restaurant.GRATH_WITH_MEALS, attributeNodes = {@NamedAttributeNode("meals")})
 @Table(name = "restaurants")
@@ -37,22 +39,16 @@ public class Restaurant extends AbstractNamedEntity {
         votes = Collections.emptyList();
     }
 
-    public Restaurant(Integer id, String name, Meal... meal) {
-        super(id, name);
-        this.meals = List.of(meal);
-    }
+        public Restaurant(Integer id, String name, List<Meal> meals, List<Vote> votes) {
+            super(id, name);
+            this.meals = meals;
+            this.votes = votes;
+        }
 
     public Restaurant(Restaurant r) {
         this(r.id, r.name);
     }
 
-    public void setMeals(Meal meal) {
-        meals.add(meal);
-    }
-
-    public void setVotes(Vote vote) {
-        votes.add(vote);
-    }
 
     @Override
     public String toString() {
