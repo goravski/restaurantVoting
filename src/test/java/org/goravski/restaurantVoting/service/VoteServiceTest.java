@@ -1,6 +1,6 @@
 package org.goravski.restaurantVoting.service;
 
-import org.goravski.restaurantVoting.RestaurantTestData;
+import org.goravski.restaurantVoting.UserTestData;
 import org.goravski.restaurantVoting.exception.NotAcceptableDateException;
 import org.goravski.restaurantVoting.exception.NotFoundException;
 import org.goravski.restaurantVoting.model.AbstractBaseEntity;
@@ -15,8 +15,8 @@ import java.util.Comparator;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.goravski.restaurantVoting.UserTestData.NOT_FOUND;
-import static org.goravski.restaurantVoting.UserTestData.USER_ID;
+import static org.goravski.restaurantVoting.RestaurantTestData.*;
+import static org.goravski.restaurantVoting.UserTestData.*;
 import static org.goravski.restaurantVoting.VoteTestData.*;
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -29,18 +29,22 @@ class VoteServiceTest {
 
     @Test
     void create() {
-        Vote created = service.create(newVote(), USER_ID, RestaurantTestData.RESTAURANT1_ID);
+        Vote expected = newVote();
+        expected.setUser(user);
+        expected.setRestaurant(restaurant1);
+        Vote created = service.create(expected);
         int id = created.id();
-        Vote newVote = newVote();
-        newVote.setId(id);
-        assertEquals(created, newVote);
+        expected.setId(id);
+        assertEquals(created, expected);
     }
 
     @Test
     void update() {
         Vote actual = getUpdatedVote(ACCEPTABLE_TIME);
-        service.update(actual, USER_ID, RestaurantTestData.RESTAURANT1_ID);
-        assertThat(service.get(VOTE1_ID, USER_ID))
+        actual.setUser(user);
+        actual.setRestaurant(restaurant1);
+        service.update(actual);
+        assertThat(service.get(VOTE1_ID))
                 .usingRecursiveComparison()
                 .ignoringFields("restaurant", "user")
                 .isEqualTo(actual);
@@ -49,41 +53,35 @@ class VoteServiceTest {
     @Test
     void updateIncorrectTime() {
         assertThrows(NotAcceptableDateException.class,
-                () -> service.update(getUpdatedVote(NOT_ACCEPTABLE_TIME), USER_ID, RestaurantTestData.RESTAURANT1_ID));
-    }
-
-    @Test
-    void updateNotOwn() {
-        assertThrows(NotFoundException.class,
-                () -> service.update(getUpdatedVote(ACCEPTABLE_TIME), USER_ID + 1, RestaurantTestData.RESTAURANT1_ID));
+                () -> service.update(getUpdatedVote(NOT_ACCEPTABLE_TIME)));
     }
 
     @Test
     void delete() {
-        service.delete(VOTE1_ID, USER_ID);
-        assertThrows(NotFoundException.class, () -> service.get(VOTE1_ID, USER_ID));
+        service.delete(VOTE1_ID);
+        assertThrows(NotFoundException.class, () -> service.get(VOTE1_ID));
     }
 
     @Test
     void deletedNotFound() {
-        assertThrows(NotFoundException.class, () -> service.delete(NOT_FOUND, USER_ID));
+        assertThrows(NotFoundException.class, () -> service.delete(UserTestData.NOT_FOUND));
     }
 
     @Test
     void get() {
-        Vote actual = service.get(VOTE1_ID, USER_ID);
+        Vote actual = service.get(VOTE1_ID);
         assertEquals(actual, vote1);
     }
 
     @Test
     void getNotFound() {
-        assertThrows(NotFoundException.class, () -> service.get(NOT_FOUND, USER_ID));
+        assertThrows(NotFoundException.class, () -> service.get(UserTestData.NOT_FOUND));
     }
 
     @Test
     void getAll() {
         List<Vote> expected = votes;
-        List<Vote> actual = service.getAll(USER_ID);
+        List<Vote> actual = service.getAll();
         actual.sort(Comparator.comparing(AbstractBaseEntity::getId));
         assertThat(actual).usingRecursiveComparison()
                 .ignoringFields("user", "restaurant")

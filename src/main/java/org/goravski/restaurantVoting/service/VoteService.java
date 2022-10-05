@@ -20,32 +20,32 @@ public class VoteService {
         this.repository = repository;
     }
 
-    public Vote create(Vote vote, int userId, int restaurantId) {
-        log.debug("create(Vote={} userID={}, restaurantId={}) method start", vote, userId, restaurantId);
+    public Vote create(Vote vote) {
+        log.debug("create(Vote={}) method start", vote);
         Assert.notNull(vote, "vote must not be null");
         checkTime(vote);
-        return repository.save(vote, userId, restaurantId);
+        return repository.save(vote);
     }
 
-    public void update(Vote vote, int userId, int restaurantId) {
-        log.debug("update(Vote={}, userId={}, restaurantId={}) method START", vote, userId, restaurantId);
+    public void update(Vote vote) {
+        log.debug("update(Vote={}) method START", vote);
         Assert.notNull(vote, "vote must not be null");
         checkTime(vote);
-        checkNotFoundWithId(repository.save(vote, userId, restaurantId), userId);
-        log.debug("update(Vote={}, userId={}, restaurantId={}) method END", vote, userId, restaurantId);
+        repository.save(vote);
+        log.debug("update(Vote={}) method END", vote);
     }
 
-    public void delete(int id, int userId) {
-        log.debug("delete(Vote id={}, userId={}) method START", id, userId);
-        checkNotFoundWithId(repository.delete(id, userId), id);
-        log.debug("delete(Vote id={}, userId={}) method END", id, userId);
+    public void delete(int id) {
+        log.debug("delete(Vote id={}) method START", id);
+        checkNotFoundWithId(repository.delete(id), id);
+        log.debug("delete(Vote id={}) method END", id);
     }
 
-    public Vote get(int id, int userId) {
-        return checkNotFoundWithId(repository.get(id, userId), id);
+    public List<Vote> getAll() {
+        return repository.getAll();
     }
 
-    public List<Vote> getAll(int userId) {
-        return repository.getAll(userId);
+    public Vote get(int id) {
+        return checkNotFoundWithId(repository.get(id), id);
     }
 }

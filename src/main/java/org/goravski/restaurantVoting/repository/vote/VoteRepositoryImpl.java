@@ -11,7 +11,7 @@ import java.util.List;
 
 @Repository
 public class VoteRepositoryImpl implements VoteRepository {
-    private final JpaVoteRepository  voteRepository;
+    private final JpaVoteRepository voteRepository;
     private final JpaRestaurantRepository restaurantRepository;
     private final JpaUserRepository userRepository;
 
@@ -24,40 +24,37 @@ public class VoteRepositoryImpl implements VoteRepository {
 
 
     @Override
-    public Vote save(Vote vote, int authId) {
-        throw new NotSupportedException("Method save (T t, int authId) not supported for VoteRepository");
-    }
-
-    @Override
-    @Transactional
-    public Vote save(Vote vote, int authId, int id) {
-        if (!vote.isNew() && get(vote.id(), authId) == null) {
-            return null;
-        }
-        vote.setRestaurant(restaurantRepository.getReferenceById(id));
-        vote.setUser(userRepository.getReferenceById(authId));
+    public Vote save(Vote vote) {
         return voteRepository.save(vote);
     }
 
     @Override
-    public boolean delete(int id, int authId) {
-        return voteRepository.delete(id, authId) != 0;
+    @Transactional
+    public Vote save(Vote vote, int id) {
+        if (!vote.isNew() && get(vote.id()) == null) {
+            return null;
+        }
+        vote.setRestaurant(restaurantRepository.getReferenceById(id));
+        return voteRepository.save(vote);
     }
 
     @Override
-    public Vote get(int id, int authId) {
-        return voteRepository.findById(id)
-                .filter(vote -> vote.getUser().getId() == authId)
-                .orElse(null);
+    public boolean delete(int id) {
+        return voteRepository.delete(id) != 0;
     }
 
     @Override
-    public Vote getByString(String string, int authId) {
+    public Vote get(int id) {
+        return voteRepository.findById(id).orElse(null);
+    }
+
+    @Override
+    public Vote getByString(String string) {
         throw new NotSupportedException("Method save (T t, int authId) not supported for VoteRepository");
     }
 
     @Override
-    public List<Vote> getAll(int authId) {
-        return voteRepository.getAll(authId);
+    public List<Vote> getAll() {
+        return voteRepository.getAll();
     }
 }

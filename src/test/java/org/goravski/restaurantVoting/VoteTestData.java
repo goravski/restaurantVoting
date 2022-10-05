@@ -18,12 +18,13 @@ public class VoteTestData {
     public static final LocalDateTime ACCEPTABLE_TIME = of(2020, Month.JANUARY, 30, 10, 0);
     public static final LocalDateTime NOT_ACCEPTABLE_TIME = of(2020, Month.JANUARY, 30, 11, 1);
 
-    public static Vote vote1 = new Vote(VOTE1_ID, ACCEPTABLE_TIME, true, restaurant1, user);
-    public static Vote vote2 = new Vote(VOTE1_ID + 1, ACCEPTABLE_TIME.plusDays(1), true, restaurant1, user);
+    public static Vote vote1 = new Vote(VOTE1_ID, ACCEPTABLE_TIME, true);
+    public static Vote vote2 = new Vote(VOTE1_ID + 1, ACCEPTABLE_TIME.plusDays(1), true);
 
     public static Vote getUpdatedVote(LocalDateTime dateTime) {
         Vote updated = new Vote(vote1);
         updated.setDateVote(dateTime.plus(2, ChronoUnit.MINUTES));
+        updated.setVote(false);
         return updated;
     }
 

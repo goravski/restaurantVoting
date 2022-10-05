@@ -15,11 +15,11 @@ public interface JpaVoteRepository extends JpaRepository<Vote, Integer> {
 
     @Transactional
     @Modifying
-    @Query("DELETE FROM Vote v WHERE v.id =:id AND v.user.id =:userId")
-    int delete(@Param("id") int id, @Param("userId") int userId);
+    @Query("DELETE FROM Vote v WHERE v.id =:id")
+    int delete(@Param("id") int id);
 
     @Transactional
-    @EntityGraph(Vote.GRATH_USER_JOIN)
-    @Query("SELECT v FROM Vote v WHERE v.user.id=:userId ORDER BY v.dateVote DESC")
-    List<Vote> getAll(@Param("userId") int userId);
+    @EntityGraph(Vote.GRATH_RESTAURANT_JOIN)
+    @Query("SELECT v FROM Vote v ORDER BY v.dateVote DESC")
+    List<Vote> getAll();
 }

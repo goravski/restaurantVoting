@@ -1,8 +1,8 @@
 package org.goravski.restaurantVoting.repository.vote;
 
 import org.goravski.restaurantVoting.model.Vote;
-import org.goravski.restaurantVoting.repository.AbstractAuthorizedRepository;
+import org.goravski.restaurantVoting.repository.AbstractRepository;
 
-public interface VoteRepository extends AbstractAuthorizedRepository<Vote> {
+public interface VoteRepository extends AbstractRepository<Vote> {
 
 }
