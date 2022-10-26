@@ -41,7 +41,7 @@ public class AdminMealController {
         mealService.delete(id);
     }
 
-    @PostMapping
+    @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<Meal> create(@RequestBody Meal eMeal) {
         Meal newMeal = new Meal(eMeal);

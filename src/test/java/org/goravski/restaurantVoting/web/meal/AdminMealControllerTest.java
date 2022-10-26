@@ -1,6 +1,7 @@
 package org.goravski.restaurantVoting.web.meal;
 
 
+import org.goravski.restaurantVoting.RestaurantTestData;
 import org.goravski.restaurantVoting.exception.NotFoundException;
 import org.goravski.restaurantVoting.json.JsonUtil;
 import org.goravski.restaurantVoting.model.Meal;
@@ -61,6 +62,7 @@ class AdminMealControllerTest extends AbstractControllerTest {
     @Test
     void create() throws Exception {
         Meal newMeal = getNewMeal();
+        newMeal.setRestaurant(RestaurantTestData.restaurant1);
         String newJson = JsonUtil.writeValue(newMeal);
         MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.post("/admin/meals")
                         .contentType(MediaType.APPLICATION_JSON)
@@ -75,6 +77,7 @@ class AdminMealControllerTest extends AbstractControllerTest {
     @Test
     void update() throws Exception {
         Meal updatedMeal = getUpdatedMeal();
+        updatedMeal.setRestaurant(RestaurantTestData.restaurant1);
         String updatedJson = JsonUtil.writeValue(updatedMeal);
         MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.put("/admin/meals/" + updatedMeal.getId())
                         .contentType(MediaType.APPLICATION_JSON_VALUE)
