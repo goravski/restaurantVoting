@@ -48,4 +48,7 @@ public class VoteService {
     public Vote get(int id) {
         return checkNotFoundWithId(repository.get(id), id);
     }
+    public int countVotes (int restaurantId){
+        return  repository.getVotesByRestaurant(restaurantId);
+    }
 }

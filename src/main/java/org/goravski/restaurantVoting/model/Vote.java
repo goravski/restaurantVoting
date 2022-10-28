@@ -1,6 +1,5 @@
 package org.goravski.restaurantVoting.model;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.*;
 
 import javax.persistence.*;
@@ -8,15 +7,16 @@ import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 
 import static org.goravski.restaurantVoting.model.Vote.GRATH_RESTAURANT_JOIN;
-import static org.goravski.restaurantVoting.model.Vote.GRATH_USER_JOIN;
 
 @Getter
 @Setter
 @NoArgsConstructor
+@AllArgsConstructor
 @Entity
+@ToString
 @Table(name = "votes")
 @NamedEntityGraph(name = GRATH_RESTAURANT_JOIN, attributeNodes = {@NamedAttributeNode("restaurant")})
-@NamedEntityGraph(name = GRATH_USER_JOIN, attributeNodes = {@NamedAttributeNode("user")})
+
 public class Vote extends AbstractBaseEntity {
     public static final String GRATH_RESTAURANT_JOIN = "RestaurantJoin";
     public static final String GRATH_USER_JOIN = "UserJoin";
@@ -26,21 +26,26 @@ public class Vote extends AbstractBaseEntity {
     private LocalDateTime dateVote;
 
     @Column(name = "vote")
-    private boolean isVote = true;
+    @Getter
+    private boolean isVote;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "restaurant_id", nullable = false)
-    @JsonBackReference
+    @ToString.Exclude
     private Restaurant restaurant;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
+    @ToString.Exclude
     private User user;
 
-    public Vote(Integer id, LocalDateTime dateVote, boolean isVote, Restaurant restaurant, User user) {
+    public Vote(Integer id, LocalDateTime dateVote, boolean isVote) {
         super(id);
         this.dateVote = dateVote;
         this.isVote = isVote;
+    }
+    public Vote (Integer id, LocalDateTime dateVote, boolean isVote, Restaurant restaurant, User user){
+        this (id, dateVote, isVote);
         this.restaurant = restaurant;
         this.user = user;
     }
@@ -53,4 +58,5 @@ public class Vote extends AbstractBaseEntity {
         super(id);
         this.dateVote = dateVote;
     }
+
 }

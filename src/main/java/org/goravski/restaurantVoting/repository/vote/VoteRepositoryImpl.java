@@ -24,6 +24,7 @@ public class VoteRepositoryImpl implements VoteRepository {
 
 
     @Override
+    @Transactional
     public Vote save(Vote vote) {
         return voteRepository.save(vote);
     }
@@ -56,5 +57,10 @@ public class VoteRepositoryImpl implements VoteRepository {
     @Override
     public List<Vote> getAll() {
         return voteRepository.getAll();
+    }
+
+    @Override
+    public int getVotesByRestaurant(int restaurantId) {
+        return voteRepository.getVotesByRestaurant(restaurantId);
     }
 }

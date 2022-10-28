@@ -88,4 +88,11 @@ class VoteServiceTest {
                 .isEqualTo(expected);
 
     }
+
+    @Test
+    void countVotesTest() {
+        int expected = 2;
+        int result = service.countVotes(RESTAURANT1_ID);
+        assertEquals(expected, result);
+    }
 }

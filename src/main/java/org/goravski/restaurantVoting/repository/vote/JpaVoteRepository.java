@@ -11,7 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 @Transactional(readOnly = true)
-public interface JpaVoteRepository extends JpaRepository<Vote, Integer> {
+public interface JpaVoteRepository extends JpaRepository<Vote, Integer>{
 
     @Transactional
     @Modifying
@@ -22,4 +22,7 @@ public interface JpaVoteRepository extends JpaRepository<Vote, Integer> {
     @EntityGraph(Vote.GRATH_RESTAURANT_JOIN)
     @Query("SELECT v FROM Vote v ORDER BY v.dateVote DESC")
     List<Vote> getAll();
+
+    @Query("SELECT COUNT (v) FROM Vote v WHERE v.restaurant.id =:restaurantId AND v.isVote = true ")
+    int getVotesByRestaurant (@Param("restaurantId") int restaurantId);
 }

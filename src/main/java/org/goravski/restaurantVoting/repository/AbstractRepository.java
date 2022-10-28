@@ -15,4 +15,8 @@ public interface AbstractRepository <T>{
 
     List<T> getAll();
 
+    default int getVotesByRestaurant (int restaurantId){
+        throw new UnsupportedOperationException();
+    };
+
 }
