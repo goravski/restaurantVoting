@@ -3,7 +3,6 @@ package org.goravski.restaurantVoting.repository.vote;
 import org.goravski.restaurantVoting.exception.NotSupportedException;
 import org.goravski.restaurantVoting.model.Vote;
 import org.goravski.restaurantVoting.repository.restaurant.JpaRestaurantRepository;
-import org.goravski.restaurantVoting.repository.user.JpaUserRepository;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -13,13 +12,10 @@ import java.util.List;
 public class VoteRepositoryImpl implements VoteRepository {
     private final JpaVoteRepository voteRepository;
     private final JpaRestaurantRepository restaurantRepository;
-    private final JpaUserRepository userRepository;
 
-    public VoteRepositoryImpl(JpaVoteRepository voteRepository, JpaRestaurantRepository restaurantRepository,
-                              JpaUserRepository userRepository) {
+    public VoteRepositoryImpl(JpaVoteRepository voteRepository, JpaRestaurantRepository restaurantRepository) {
         this.voteRepository = voteRepository;
         this.restaurantRepository = restaurantRepository;
-        this.userRepository = userRepository;
     }
 
 
